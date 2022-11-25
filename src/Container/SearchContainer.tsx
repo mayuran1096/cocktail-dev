@@ -1,16 +1,22 @@
 import axios from "axios";
-import React, { useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { singleCocktailType } from "../App";
-import SingleCocktail from "../Components/SingleCocktail";
+import SingleCocktailComponent from "../Components/SingleCocktailComponent";
 import useDebounce from "../hooks/useDebounce";
 
 let cancelToken: any;
 
-const SearchContainer = () => {
+const SearchContainer: FC<{
+  favoriteCocktails: singleCocktailType[];
+  addToFavorite: Function;
+  removeFromFavorite: Function;
+}> = ({ favoriteCocktails, addToFavorite, removeFromFavorite }) => {
   const [searchKey, setSearchKey] = useState("");
   const [queryCocktailResult, setQueryCocktailResult] = useState<
     singleCocktailType[]
   >([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const debouncedSearchText = useDebounce(searchKey, 1000);
 
   useEffect(() => {
@@ -18,6 +24,7 @@ const SearchContainer = () => {
   }, [debouncedSearchText]);
 
   const handleSearchChange = async (searchKey: string) => {
+    setLoading(true);
     setQueryCocktailResult([]);
     //Check if there are any previous pending requests
     if (typeof cancelToken != typeof undefined) {
@@ -36,20 +43,29 @@ const SearchContainer = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const renderCocktails = useMemo(() => {
     if (!queryCocktailResult?.length) return <div>No cocktails available.</div>;
     return queryCocktailResult?.map(
-      (cocktail: singleCocktailType, index: number) => (
-        <SingleCocktail clickedTab={1} index={index} cocktail={cocktail} />
-      )
+      (cocktail: singleCocktailType, index: number) =>
+        cocktail?.idDrink ? (
+          <SingleCocktailComponent
+            clickedTab={1}
+            index={index}
+            cocktail={cocktail}
+            addToFavorite={addToFavorite}
+            favoriteCocktails={favoriteCocktails}
+            removeFromFavorite={removeFromFavorite}
+          />
+        ) : null
     );
-  }, [queryCocktailResult]);
+  }, [queryCocktailResult, favoriteCocktails]);
   return (
     <div>
       <input value={searchKey} onChange={(e) => setSearchKey(e.target.value)} />
-      {renderCocktails}
+      {loading ? "loading.. " : renderCocktails}
     </div>
   );
 };

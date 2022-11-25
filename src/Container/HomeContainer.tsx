@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useMemo } from "react";
-import "../App.css";
 import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 import { singleCocktailType } from "../App";
+import "../App.css";
 import HomeComponent from "../Components/HomeComponent";
-import SingleCocktail from "../Components/SingleCocktail";
+import SingleCocktailComponent from "../Components/SingleCocktailComponent";
 
 function HomeContainer() {
   const [randomCocktails, setRandomCockTails] = useState<
     singleCocktailType[] | []
   >([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function fetchRandomCocktails() {
+    setLoading(true);
     const cocktailRandomList = await Promise.all([
       axios.get(`https://www.thecocktaildb.com/api/json/v1/1/random.php`),
       axios.get(`https://www.thecocktaildb.com/api/json/v1/1/random.php`),
@@ -25,14 +27,19 @@ function HomeContainer() {
       }
     );
     setRandomCockTails(filterCockTailList || []);
+    setLoading(false);
   }
 
   const renderRandomCockTails = useMemo(() => {
     return randomCocktails?.map(
       (cocktail: singleCocktailType, index: number) => {
-        return (
-          <SingleCocktail clickedTab={0} index={index} cocktail={cocktail} />
-        );
+        return cocktail?.idDrink ? (
+          <SingleCocktailComponent
+            clickedTab={0}
+            index={index}
+            cocktail={cocktail}
+          />
+        ) : null;
       }
     );
   }, [randomCocktails]);
@@ -46,6 +53,7 @@ function HomeContainer() {
       <HomeComponent
         renderCocktails={() => renderRandomCockTails}
         fetchCocktails={fetchRandomCocktails}
+        loading={loading}
       />
     </div>
   );

@@ -1,6 +1,4 @@
-import React from "react";
-
-function Loader() {
+const Loader = () => {
   return (
     <div className="overlay">
       <div className="overlay__inner">
@@ -10,6 +8,6 @@ function Loader() {
       </div>
     </div>
   );
-}
+};
 
 export default Loader;

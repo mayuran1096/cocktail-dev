@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { BiRefresh } from "react-icons/bi";
 import Loader from "./Loader";
+
 type HomeComponentProps = {
   renderCocktails: Function;
   fetchCocktails: Function;

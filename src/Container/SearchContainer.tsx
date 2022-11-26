@@ -16,6 +16,7 @@ const SearchContainer: FC<{
   const [queryCocktailResult, setQueryCocktailResult] = useState<
     singleCocktailType[]
   >([]);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const debouncedSearchText = useDebounce(searchKey, 1000);

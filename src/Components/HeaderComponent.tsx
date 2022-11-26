@@ -1,5 +1,4 @@
-import React, { FC, useState } from "react";
-import Logo from "../images/Logo-main.png";
+import { FC } from "react";
 
 interface HeaderComponentProps {
   setSelectedTab: Function;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./Styles/MainPageStyles.scss";
 import FavoriteList from "./Components/FavoriteList";
 import HeaderComponent from "./Components/HeaderComponent";
 import HomeContainer from "./Container/HomeContainer";
@@ -50,7 +50,10 @@ function App() {
 
   return (
     <div className="App">
-      <HeaderComponent setSelectedTab={setSelectedTab} />
+      <HeaderComponent
+        setSelectedTab={setSelectedTab}
+        selectedTab={selectedTab}
+      />
 
       {selectedTab === 0 && <HomeContainer />}
       {selectedTab === 1 && (

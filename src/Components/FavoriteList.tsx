@@ -13,8 +13,14 @@ const FavoriteList: FC<FavoriteListProps> = ({
   addToFavorite,
   favoriteCocktails,
 }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const renderFavoriteCocktails = useMemo(() => {
-    if (!favoriteCocktails?.length) return <div>No cocktails available.</div>;
+    if (!favoriteCocktails?.length)
+      return (
+        <div className="no-content">
+          <h1>No cocktails available.</h1>
+        </div>
+      );
     return favoriteCocktails?.map(
       (cocktail: singleCocktailType, index: number) =>
         cocktail?.idDrink ? (
@@ -29,7 +35,7 @@ const FavoriteList: FC<FavoriteListProps> = ({
         ) : null
     );
   }, [favoriteCocktails]);
-  return <div>{renderFavoriteCocktails}</div>;
+  return <div className="home-wrapper">{renderFavoriteCocktails}</div>;
 };
 
 export default FavoriteList;

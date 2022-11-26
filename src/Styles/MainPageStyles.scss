@@ -1,0 +1,211 @@
+@import "utils/variables";
+body {
+  background-color: $AppColor;
+  font-family: cursive;
+}
+
+.home-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5%;
+  .no-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: gray;
+    font-weight: bold;
+  }
+}
+.search-field-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-field {
+  width: 80%;
+  margin-top: 30px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 10px;
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  border: none;
+}
+.btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: $SecondaryTheme;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+  bottom: 40px;
+  right: 40px;
+  opacity: 0.9;
+  color: white;
+  font-weight: bold;
+  &.btn-disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+    opacity: 0.3;
+  }
+}
+.cocktail-card {
+  width: 350px;
+  height: 650px;
+  background-color: rgb(229, 227, 250);
+  margin: 20px;
+  border-radius: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 15px 0;
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0 8px 10px 0 rgba(75, 32, 230, 0.2);
+  }
+  .title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cocktail-image {
+    width: 350px;
+    border-radius: 50px 20px 0 0;
+    height: 400px;
+    object-fit: cover;
+  }
+  .loader-image {
+    width: 100px;
+    height: 100px;
+  }
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .card-title {
+    font-size: 25px;
+    font-weight: bolder;
+    margin: 5px;
+  }
+  .like-btn {
+    height: 130px;
+  }
+  .card-subtitle {
+    font-size: 20px;
+    color: slategrey;
+    font-weight: bold;
+  }
+}
+.overlay {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #222;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.overlay__inner {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.overlay__content {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.05);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.header {
+  overflow: hidden;
+  background-color: $SecondaryTheme;
+  padding: 20px 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+  line-height: 25px;
+  border-radius: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.header div.logo {
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  float: left;
+  padding: 16px;
+  text-decoration: none;
+  line-height: 25px;
+  border-radius: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.header a:hover {
+  background-color: rgb(229, 227, 250);
+  color: black;
+}
+
+.header a.active {
+  background-color: white;
+  color: white;
+  border-radius: 20px;
+  color: black;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}

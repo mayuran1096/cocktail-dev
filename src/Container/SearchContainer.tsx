@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FC, useEffect, useMemo, useState } from "react";
 import { singleCocktailType } from "../App";
+import Loader from "../Components/Loader";
 import SingleCocktailComponent from "../Components/SingleCocktailComponent";
 import useDebounce from "../hooks/useDebounce";
 
@@ -47,7 +48,12 @@ const SearchContainer: FC<{
   };
 
   const renderCocktails = useMemo(() => {
-    if (!queryCocktailResult?.length) return <div>No cocktails available.</div>;
+    if (!queryCocktailResult?.length)
+      return (
+        <div className="no-content">
+          <h1>No cocktails available.</h1>
+        </div>
+      );
     return queryCocktailResult?.map(
       (cocktail: singleCocktailType, index: number) =>
         cocktail?.idDrink ? (
@@ -63,10 +69,20 @@ const SearchContainer: FC<{
     );
   }, [queryCocktailResult, favoriteCocktails]);
   return (
-    <div>
-      <input value={searchKey} onChange={(e) => setSearchKey(e.target.value)} />
-      {loading ? "loading.. " : renderCocktails}
-    </div>
+    <>
+      <div className="search-field-wrapper">
+        <input
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+          className="search-field"
+          placeholder="Search cocktails"
+        />
+      </div>
+
+      <div className="home-wrapper">
+        {loading ? <Loader /> : renderCocktails}
+      </div>
+    </>
   );
 };
 

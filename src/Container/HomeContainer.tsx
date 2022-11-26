@@ -49,13 +49,11 @@ function HomeContainer() {
   }, []);
 
   return (
-    <div>
-      <HomeComponent
-        renderCocktails={() => renderRandomCockTails}
-        fetchCocktails={fetchRandomCocktails}
-        loading={loading}
-      />
-    </div>
+    <HomeComponent
+      renderCocktails={() => renderRandomCockTails}
+      fetchCocktails={fetchRandomCocktails}
+      loading={loading}
+    />
   );
 }
 

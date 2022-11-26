@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import { BiRefresh } from "react-icons/bi";
+import Loader from "./Loader";
 type HomeComponentProps = {
   renderCocktails: Function;
   fetchCocktails: Function;
@@ -11,12 +13,17 @@ const HomeComponent: FC<HomeComponentProps> = ({
   loading,
 }) => {
   return (
-    <div>
-      {renderCocktails()}
-      <button onClick={() => fetchCocktails()} disabled={loading}>
-        {loading ? "loading" : "refresh"}
-      </button>
-    </div>
+    <>
+      <div className="home-wrapper">
+        {loading ? <Loader /> : renderCocktails()}
+      </div>
+      <div
+        onClick={() => !loading && fetchCocktails()}
+        className={loading ? "btn btn-disabled" : "btn"}
+      >
+        {loading ? "loading" : <BiRefresh size={"large"} />}
+      </div>
+    </>
   );
 };
 
